@@ -29,7 +29,7 @@ pipeline {
                 echo 'Snyk Scanning'
 		snykSecurity(
 			snykInstallation: 'snyk_install',
-			snykTokenId: 'snyk-api-token'
+			snykTokenId: "$SNYK_TOKEN"
 		)
             }
         }
