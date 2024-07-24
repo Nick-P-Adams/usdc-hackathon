@@ -26,9 +26,11 @@ pipeline {
         
         stage('Snyk Scan') {
             steps {
-                sh 'npm install -g snyk'
-                sh 'snyk auth $SNYK_TOKEN'
-                sh 'snyk test'
+                echo 'Snyk Scanning'
+		snykSecurity(
+			snykInstallation: 'snyk_install',
+			snykTokenId: 'snyk-api-token'
+		)
             }
         }
 
@@ -37,7 +39,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                sh 'echo Deploy!'
+                echo 'Deploy!'
             }
         }
     }
