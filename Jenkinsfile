@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        SNYK_TOKEN = credentials('snyk-api-token')
+        SNYK_TOKEN = credentials('snyk_api_token')
     }
     
     stages {
@@ -29,7 +29,7 @@ pipeline {
                 echo 'Snyk Scanning'
 		snykSecurity(
 			snykInstallation: 'snyk_install',
-			snykTokenId: 'fef9c154-1d2c-429a-8071-e8304ba75c6a'
+			snykTokenId: '$SNYK_TOKEN'
 		)
             }
         }
