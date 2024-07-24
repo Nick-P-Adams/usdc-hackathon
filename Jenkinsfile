@@ -50,15 +50,9 @@ pipeline {
         }
         success {
             echo 'Pipeline completed successfully!'
-            mail to: 'nick.patrick.adams@gmail.com',
-                 subject: "SUCCESS: Build ${env.BUILD_NUMBER}",
-                 body: "Good news! The build ${env.BUILD_NUMBER} was successful."
         }
         failure {
             echo 'Pipeline failed!'
-            mail to: 'nick.patrick.adams@gmail.com',
-                 subject: "FAILURE: Build ${env.BUILD_NUMBER}",
-                 body: "Unfortunately, the build ${env.BUILD_NUMBER} failed. Please check the logs for details."
         }
     }
 }
