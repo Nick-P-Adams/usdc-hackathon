@@ -14,20 +14,23 @@ pipeline {
 		sh 'npm install @sentry/nextjs@8.10.0'
             }
         }
+        stage('Parallel Tests and Snyk Scan') {
+		parallel {
+			stage('Unit Tests') {
+            			steps {
+                			sh 'npm run test'
+            			}
+        		}
         
-        stage('Run Tests') {
-            steps {
-                sh 'npm run test'
-            }
-        }
-        
-        stage('Snyk Scan') {
-		steps {
-			echo 'Snyk Scanning'
-			snykSecurity(
-				snykInstallation: 'snyk_install',
-				snykTokenId: 'snyk_api_token'
-			)
+        		stage('Snyk Scan') {
+				steps {
+					echo 'Snyk Scanning'
+					snykSecurity(
+						snykInstallation: 'snyk_install',
+						snykTokenId: 'snyk_api_token'
+					)
+				}
+			}
 		}
         }
 
