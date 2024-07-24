@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        SNYK_TOKEN = credentials('snyk-api-token')
+        SNYK_TOKEN = credentials('snyk_api_token')
     }
     
     stages {
@@ -29,7 +29,7 @@ pipeline {
                 echo 'Snyk Scanning'
 		snykSecurity(
 			snykInstallation: 'snyk_install',
-			snykTokenId: "$SNYK_TOKEN"
+			snykTokenId: '$SNYK_TOKEN'
 		)
             }
         }
@@ -50,15 +50,9 @@ pipeline {
         }
         success {
             echo 'Pipeline completed successfully!'
-            mail to: 'nick.patrick.adams@gmail.com',
-                 subject: "SUCCESS: Build ${env.BUILD_NUMBER}",
-                 body: "Good news! The build ${env.BUILD_NUMBER} was successful."
         }
         failure {
             echo 'Pipeline failed!'
-            mail to: 'nick.patrick.adams@gmail.com',
-                 subject: "FAILURE: Build ${env.BUILD_NUMBER}",
-                 body: "Unfortunately, the build ${env.BUILD_NUMBER} failed. Please check the logs for details."
         }
     }
 }
