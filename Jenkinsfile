@@ -11,7 +11,7 @@ pipeline {
         stage('Install npm packages') {
             steps {
                 sh 'npm install'
-		sh '@sentry/nextjs@8.10.0'
+		sh 'npm install @sentry/nextjs@8.10.0'
             }
         }
         
