@@ -1,10 +1,6 @@
 pipeline {
     agent any
     
-    environment {
-        SNYK_TOKEN = credentials('snyk_api_token')
-    }
-    
     stages {
         stage('Checkout') {
             steps {
