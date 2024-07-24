@@ -27,9 +27,10 @@ pipeline {
         stage('Snyk Scan') {
 		steps {
 			echo 'Snyk Scanning'
-			sh 'npm install -g snyk'
-			sh 'snyk auth ${env.SNYK_TOKEN}'
-			sh 'snyk test'
+			snykSecurity(
+				snykInstallation: 'snyk_install',
+				snykTokenId: 'snyk_api_token'
+			)
 		}
         }
 
