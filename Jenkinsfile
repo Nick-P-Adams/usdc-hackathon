@@ -14,7 +14,7 @@ pipeline {
 		sh 'npm install @sentry/nextjs@8.10.0'
             }
         }
-        stage('Parallel Tests and Snyk Scan') {
+        
 		parallel {
 			stage('Unit Tests') {
             			steps {
@@ -32,7 +32,7 @@ pipeline {
 				}
 			}
 		}
-        }
+        
 
         stage('Deploy') {
             when {
