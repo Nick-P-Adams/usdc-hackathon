@@ -11,6 +11,7 @@ pipeline {
         stage('Install npm packages') {
             steps {
                 sh 'npm install'
+		sh 'npm update sentry'
             }
         }
         
