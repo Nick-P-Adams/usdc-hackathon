@@ -1,10 +1,6 @@
 pipeline {
     agent any
     
-    environment {
-        SNYK_TOKEN = credentials('snyk_api_token')
-    }
-    
     stages {
         stage('Checkout') {
             steps {
@@ -15,24 +11,36 @@ pipeline {
         stage('Install npm packages') {
             steps {
                 sh 'npm install'
+		sh 'npm install @sentry/nextjs@8.10.0'
             }
         }
+
+	stage('Parallel Tests and Snyk Scan') {        
+		parallel {
+			stage('Unit Tests') {
+            			steps {
+                			sh 'npm run test'
+            			}
+        		}
+			
+			stage('End to End Tests') {
+				setps {
+					npx playwright install
+					npm run test:e2e
+				}
+			}
         
-        stage('Run Tests') {
-            steps {
-                sh 'npm run test'
-            }
-        }
-        
-        stage('Snyk Scan') {
-            steps {
-                echo 'Snyk Scanning'
-		snykSecurity(
-			snykInstallation: 'snyk_install',
-			snykTokenId: "${env.SNYK_TOKEN}"
-		)
-            }
-        }
+        		stage('Snyk Scan') {
+				steps {
+					echo 'Snyk Scanning'
+					snykSecurity(
+						snykInstallation: 'snyk_install',
+						snykTokenId: 'snyk_api_token'
+					)
+				}
+			}
+		}
+	}        
 
         stage('Deploy') {
             when {
