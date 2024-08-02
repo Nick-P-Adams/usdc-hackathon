@@ -22,6 +22,13 @@ pipeline {
                 			sh 'npm run test'
             			}
         		}
+			
+			stage('End to End Tests') {
+				setps {
+					npx playwright install
+					npm run test:e2e
+				}
+			}
         
         		stage('Snyk Scan') {
 				steps {
