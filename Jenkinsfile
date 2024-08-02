@@ -24,7 +24,7 @@ pipeline {
         		}
 			
 			stage('End to End Tests') {
-				setps {
+				steps {
 					sh 'npx playwright install'
 					sh 'npm run test:e2e'
 				}
