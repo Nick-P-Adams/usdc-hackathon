@@ -15,6 +15,12 @@ pipeline {
             }
         }
 
+	stage('Run Web Server') {
+		steps {
+			sh 'npm run dev'
+		}
+	}
+
 	stage('Parallel Tests and Snyk Scan') {        
 		parallel {
 			stage('Unit Tests') {
